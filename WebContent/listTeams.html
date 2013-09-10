@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/javascript" src="/Hermes/assets/js/jquery.js"></script>
+<script type="text/javascript">
+<!--
+	$(document).ready(function() {
+		$.get(_hermes.appContext + '/api/team', function(data) {
+			console.log(data);
+			for(var i=0;i<data.length;i++){
+				$( "#table-body" ).append( "<tr><td><a href=manage/"+data[i].teamId+">"+data[i].teamId+"</a></td><td>"+data[i].teamName+"</td><td>"+data[i].teamDescription+"</td><td>"+data[i].teamLeader+"</td></tr>" );
+			}
+		});
+	});
+//-->
+</script>
+
+<style type="text/css">
+th {
+	text-align: center;
+}
+tr {
+	text-align: center;
+}
+</style>
+
+<div class="container theme-showcase table-responsive">
+<table class="table table-bordered" >
+	<thead style="text-align: center;">
+	    <tr>
+          <th>Team ID</th>
+	      <th>Team Name</th>
+	      <th>Team Description</th>
+	      <th>Team Leader</th>
+	    </tr>
+  	</thead>
+  
+	<tbody id="table-body" class="table-hover" style="text-align: center;">
+	</tbody>
+</table>
+</div>
+
+<!--  Developed By Yashaswi Kumar < yashx1@gmail.com > -->

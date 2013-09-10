@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<definition name="base" template="/layout/baseTemplate.jsp">
+		<put-attribute name="navbar" value="/layout/navbar.jsp" />
+	</definition>
+	
+	<definition name="welcome.view" extends="base">
+		<put-attribute name="title" value="HERMES Home Page" />
+		<put-attribute name="container" value="/welcome.html" />
+	</definition>
+	
+	<definition name="errorPage.view" extends="base">
+		<put-attribute name="title" value="HREMES Error Page" />
+		<put-attribute name="container" value="/error.html" />
+	</definition>	
+	
+	<!--  Employee Mapping Start -->
+
+	<definition name="createEmployee.view" extends="base">
+		<put-attribute name="title" value="Create New Employee" />
+		<put-attribute name="container" value="/createEmployee.html" />
+	</definition>	
+	
+	<definition name="listEmployees.view" extends="base">
+		<put-attribute name="title" value="List Of Employees" />
+		<put-attribute name="container" value="/listEmployees.html" />
+	</definition>	
+			
+	<!--  Employee Mapping Ends -->			
+
+
+	<!--  Mapping Starts -->
+
+	<definition name="listTeam.view" extends="base">
+		<put-attribute name="title" value="List Of Teams" />
+		<put-attribute name="container" value="/listTeams.html" />
+	</definition>	
+	
+	<definition name="createTeam.view" extends="base">
+		<put-attribute name="title" value="Create New Team" />
+		<put-attribute name="container" value="/createTeam.html" />
+	</definition>	
+	
+	<definition name="manageTeam.view" extends="base">
+		<put-attribute name="title" value="Manage Team" />
+		<put-attribute name="container" value="/manageTeam.html" />
+	</definition>	
+	
+	<!-- Team Mapping Ends -->
+		
+		<!--  Developed By Yashaswi Kumar < yashx1@gmail.com > -->
+</tiles-definitions>

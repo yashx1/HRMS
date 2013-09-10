@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+<Resource id="hermesDS-JTA" type="DataSource">
+  JdbcDriver com.mysql.jdbc.Driver
+  JdbcUrl jdbc:mysql://localhost:3306/hermes
+  UserName root
+  Password adminadmin
+  JtaManaged true
+</Resource>
+
+
+<Resource id="hermesDS-Non-JTA" type="DataSource">
+  JdbcDriver com.mysql.jdbc.Driver
+  JdbcUrl jdbc:mysql://localhost:3306/hermes
+  UserName root
+  Password adminadmin
+  JtaManaged false
+</Resource>
+
+</tomee>

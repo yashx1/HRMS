@@ -1,0 +1,42 @@
+.alert {
+display: block;
+width: 95%;
+margin: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #F3D9D9 url(../images/icn_alert_error.png) no-repeat;
+background-position: 10px 10px;
+border: 1px solid #D20009;
+color: #7B040F;
+padding: 10px 0;
+text-indent: 40px;
+font-size: 11pt;
+box-shadow: 1px 1px 2px #D20009;
+}
+
+.alert_success {
+display: block;
+width: 95%;
+margin: 20px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background: #E2F6C5 url(../images/icn_alert_success.png) no-repeat;
+background-position: 10px 10px;
+border: 1px solid #79C20D;
+color: #32510F;
+padding: 10px 0;
+text-indent: 40px;
+font-size: 11pt;
+box-shadow: 1px 1px 2px #79C20D;
+}
+
+<h4 id="msg" class="alert_error" style="
+    border: 1px solid;
+    background: pink;
+    -webkit-border-radius: 5px; 
+    width: 17.5%;
+    padding: 0.5%;
+    alignment-baseline: central;
+">Employee Successfully Created.</h4>

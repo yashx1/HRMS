@@ -1,0 +1,69 @@
+<script type="text/javascript" src="/Hermes/assets/js/jquery.js"></script>
+
+<style>
+<!--
+#msg{
+	text-align: center;
+}
+-->
+</style>
+<script type="text/javascript">
+<!--
+	function createEmployee() {
+
+		var empObj = new Object();
+		empObj.fname = document.getElementById("fname").value;
+		empObj.lname = document.getElementById("lname").value;
+		empObj.skills = document.getElementById("skills").value;
+
+		$.post(_hermes.appContext + '/api/employee', JSON.stringify(empObj))
+				.always(function(data) {
+					var $msg = $(document.createElement("div"));
+					$msg.hide();
+					$msg.attr("id", "msg");
+					$msg.addClass("alert alert-warning fade in");
+					$msg.html(data.responseText);
+					$("#viewContainer").before($msg);
+					$msg.show();
+					setTimeout("$('#msg').slideUp(400,function(){$('#msg').remove();});",5000);
+				});
+
+		return false;
+	}
+//-->
+</script>
+
+<div class="container theme-showcase table-responsive" >
+	<div id="viewContainer">
+		<br>
+		<form class="form-horizontal" onsubmit="return createEmployee()">
+			<div class="form-group">
+				<label for="fname" class="col-lg-2 control-label">First Name</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="fname" placeholder="First Name" required>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="lname" class="col-lg-2 control-label">Last Name</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="lname" placeholder="Last Name" required>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="skills" class="col-lg-2 control-label">Skills</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="skills" placeholder="Skills" required>
+				</div>
+			</div>
+			<br>
+			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10">
+					<button type="submit" class="btn btn-primary">Create Employee</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!--  Developed By Yashaswi Kumar < yashx1@gmail.com > -->

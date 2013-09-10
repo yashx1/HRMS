@@ -1,0 +1,142 @@
+<script type="text/javascript" src="/Hermes/assets/js/jquery.js"></script>
+<script type="text/javascript">
+<!--
+	$(document).ready(function(){
+		var teamId = $(location).attr("pathname").split('/')[4];
+		$.get(_hermes.appContext + '/api/team/manage/' +teamId, function(data) {
+			$('#teamName').text(data.teamName);
+			$('#teamDesc').text(data.teamDescription);
+			$('#teamLeader').text("Team Leader : "+data.teamLeader);
+		});
+		listTeamMebers();
+	});
+	
+	var timeoutID;
+
+	function listTeamMebers(){
+		var teamId = $(location).attr("pathname").split('/')[4];		
+		$.get(_hermes.appContext + '/api/team/members/' +teamId, function(data) {
+			for(var i=0;i<data.length;i++){
+				$( "#table-body" ).append( "<tr class='table-row-teamMember' id='row_"+data[i].empId+"'><td>"+data[i].empId+"</td><td>"+data[i].fname+" "+data[i].lname+"</td><td>"+data[i].skills+"</td><td><button type='button' class='btn btn-xs btn-danger' onclick=\"removeTeamMember(\'"+data[i].empId+"\')\"><span class='.glyphicon .glyphicon-plus'></span>  REMOVE</button></td></tr>" );		
+			}
+		});
+	}
+	
+	function listFreeEmployees(){
+		var teamId = $(location).attr("pathname").split('/')[4];
+		$(".table-row-freeEmp").remove();
+			$.get(_hermes.appContext + '/api/team/listFreeEmp', function(avdata) {
+				$("#availableEmp").css("display", "block");
+				for(var i=0;i<avdata.length;i++){
+					$( "#table-body-availableEmp" ).append( "<tr class='table-row-freeEmp' id='row_"+avdata[i].empId+"'><td>"+avdata[i].empId+"</td><td>"+avdata[i].fname+" "+avdata[i].lname+"</td><td>"+avdata[i].skills+"</td><td><button type='button' class='btn btn-xs btn-info'onclick=\"addTeamMember(\'"+avdata[i].empId+"\')\"><span class='.glyphicon .glyphicon-plus'></span>  ADD</button></td></tr>" );		
+				}
+			});
+	}
+	
+	function addTeamMember(empId){
+		window.clearTimeout(timeoutID);									//stopping page from refreshing
+		var teamId = $(location).attr("pathname").split('/')[4];
+		var $el = $("#row_"+empId);
+		$el.addClass("highlight");
+		$el.fadeOut(300,function(){
+			$el.fadeIn(300,function(){
+				$.get(_hermes.appContext + "/api/team/addMember/"+teamId+"/"+empId).success(function(data){
+					if (data) {
+						$("#row_"+empId).fadeOut(400).remove();
+					}
+				});
+			});
+		});
+		
+		timeoutID = setTimeout(function () {								//refreshing page.
+		       window.location.href = location.href; 
+		 }, 5000);
+	}
+	
+	function removeTeamMember(empId){
+		window.clearTimeout(timeoutID);									//stopping page from refreshing
+		var teamId = $(location).attr("pathname").split('/')[4];		
+		var $el = $("#row_"+empId);
+		$el.addClass("highlight");
+		$el.fadeOut(300,function(){
+			$el.fadeIn(300,function(){
+				$.get(_hermes.appContext + "/api/team/removeMember/"+empId).success(function(data){
+					if (data) {
+						$("#row_"+empId).fadeOut(400).remove();
+					}
+				});
+			});
+		});
+
+		timeoutID = setTimeout(function () {								//refreshing page.
+		       window.location.href = location.href; 
+		 }, 5000);
+	}
+	
+//-->
+</script>
+
+<style type="text/css">
+th {
+	text-align: center;
+}
+tr {
+	text-align: center;
+}
+.highlight {
+	border:1px solid red;
+	background-color: rgba(255,128,128,0.7);
+	color:white;
+	text-shadow: 1px 1px 1px #777;
+}
+</style>
+
+
+<div class="container theme-showcase table-responsive">
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading" id="teamName" style="font-weight: bold; font-size: 30px;"></div>
+		<div class="panel-body" id="teamDesc">
+			<p></p>
+		</div>
+		<div class="panel-body" id="teamLeader" style="font-weight: bold; color: #563D7C;">
+			<p></p>
+		</div>
+
+		<!-- Table -->
+		<table class="table table-bordered">
+			<thead style="text-align: center;">
+				<tr>
+					<th>Employee ID</th>
+					<th>Employee Name</th>
+					<th>Skills</th>
+					<th>REMOVE FROM TEAM</th>
+				</tr>
+			</thead>
+
+			<tbody id="table-body" class="table-hover" style="text-align: center;">
+			</tbody>
+		</table>
+	</div>
+<br>
+	 <button type="button" class="btn btn-primary btn-xs pull-right" onclick="listFreeEmployees()"> + Add Team Members</button>
+<br>
+<br>
+<div id="availableEmp" style="display: none;">	 
+	<!-- Table -->
+		<table class="table table-bordered">
+			<thead style="text-align: center;">
+				<tr>
+					<th>Employee ID</th>
+					<th>Employee Name</th>
+					<th>Skills</th>
+					<th>ADD TO TEAM</th>
+				</tr>
+			</thead>
+
+			<tbody id="table-body-availableEmp" class="table-hover" style="text-align: center;">
+			</tbody>
+		</table>
+</div>
+</div>
+<!--  Developed By Yashaswi Kumar < yashx1@gmail.com > -->

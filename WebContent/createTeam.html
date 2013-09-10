@@ -1,0 +1,82 @@
+<script type="text/javascript" src="/Hermes/assets/js/jquery.js"></script>
+
+<style>
+#msg{
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+<!--
+
+	$(document).ready(function(){
+		$(".team-leader-option").remove();
+			$.get(_hermes.appContext + '/api/team/listFreeEmp/', function(ldrData) {
+				for(var i=0;i<ldrData.length;i++){
+					$( "#teamLeader" ).append("<option value='"+ldrData[i].empId+"'>"+ldrData[i].fname+" "+ldrData[i].lname+"</option>");
+				}
+			});
+	});
+
+	function createTeam() {
+		if(document.getElementById("teamLeader").value == "--"){
+			alert("Please Assign Team Leader First.")
+		}else{
+			
+			var teamObj = new Object();
+			teamObj.teamName = document.getElementById("teamName").value;
+			teamObj.teamDescription = document.getElementById("teamDescription").value;
+			teamObj.teamLeader = document.getElementById("teamLeader").value;
+			
+			$.post(_hermes.appContext + '/api/team', JSON.stringify(teamObj))
+			.always(function(data) { 
+				var $msg = $(document.createElement("div"));
+				$msg.hide();
+				$msg.attr("id", "msg");
+				$msg.addClass("alert alert-warning fade in");
+				$msg.html(data.responseText);
+				$("#viewContainer").before($msg);
+				$msg.show();
+				setTimeout("$('#msg').slideUp(400,function(){$('#msg').remove();});",5000);
+			});
+		}
+		return false;
+	}
+//-->
+</script>
+
+<div class="container theme-showcase table-responsive" >
+	<div id="viewContainer">
+		<br>
+		<form class="form-horizontal" onsubmit="return createTeam()">
+	  		<div class="form-group">
+	    		<label for="teamName" class="col-lg-2 control-label">Team Name</label>
+	    			<div class="col-lg-10">
+				      <input type="text" class="form-control" id="teamName" placeholder="Team Name" required >
+	    			</div>
+	  		</div>
+		<br>
+			<div class="form-group">
+	    		<label for="teamDescription" class="col-lg-2 control-label">Team Description</label>
+	    			<div class="col-lg-10">
+				      <textarea type="text" class="form-control" id="teamDescription" placeholder="Team Description" required></textarea>
+	    			</div>
+	  		</div>
+	  	<br>
+	  		<div class="form-group">
+	    		<label for="teamLeader" class="col-lg-2 control-label">Team Leader</label>
+	    			<div class="col-lg-10">
+		    			<select class="form-control input-lg" id="teamLeader" required>
+		    				<option value="--">Select A Team Leader</option> 
+		    			</select>
+	    			</div>
+	  		</div>
+		<br>
+			<div class="form-group">
+	    		<div class="col-lg-offset-2 col-lg-10">
+	      			<button type="submit" class="btn btn-primary">Create Team</button>
+	    		</div>
+	  		</div>
+		</form>
+	</div>
+</div>
+<!--  Developed By Yashaswi Kumar < yashx1@gmail.com > -->
